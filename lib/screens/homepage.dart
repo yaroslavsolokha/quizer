@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
         _answers = [];
 
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Quiz was finished and reseted'),
+          content: Text('Quiz was finished and reset!'),
         ));
       }
     });
