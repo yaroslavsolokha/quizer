@@ -14,7 +14,7 @@ const List<Question> questions = [
     answer: true,
   ),
   Question(
-    question: 'Canis lupur is the scientific name for a wolf',
+    question: 'Canis lupus is the scientific name for a wolf',
     answer: false,
   ),
   Question(

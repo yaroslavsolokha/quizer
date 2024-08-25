@@ -14,30 +14,46 @@ class _MainScreenState extends State<MainScreen> {
   List<Icon> _answers = [];
 
   void _onPressed(bool userAnswer) {
-    setState(() {
-      if (userAnswer == questions[_currentQuestionId].answer) {
-        _answers.add(const Icon(
-          Icons.check,
-          color: Colors.green,
-        ));
-      } else {
-        _answers.add(const Icon(
-          Icons.close,
-          color: Colors.red,
-        ));
-      }
+    if (_currentQuestionId < questions.length - 1) {
+      setState(() {
+        if (userAnswer == questions[_currentQuestionId].answer) {
+          _answers.add(const Icon(Icons.check, color: Colors.green));
+        } else {
+          _answers.add(const Icon(Icons.close, color: Colors.red));
+        }
 
-      if (_currentQuestionId < questions.length - 1) {
         _currentQuestionId++;
-      } else {
-        _currentQuestionId = 0;
-        _answers = [];
+      });
+    } else {
+      _alertMessage();
+    }
+  }
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Quiz was finished and reset!'),
-        ));
-      }
-    });
+  void _alertMessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Restart'),
+        content: const Text('Your successfuly have finished quiz.'),
+        actions: [
+          TextButton(
+            onPressed: () => {Navigator.pop(context)},
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _currentQuestionId = 0;
+                _answers = [];
+              });
+
+              Navigator.pop(context);
+            },
+            child: const Text('Restart'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -70,22 +86,15 @@ class _MainScreenState extends State<MainScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    Button(
-                      answer: true,
-                      color: Colors.green,
-                      onPress: _onPressed,
-                    ),
+                    Button(answer: true, onPress: _onPressed),
                     const SizedBox(width: 20),
-                    Button(
-                      answer: false,
-                      color: Colors.red,
-                      onPress: _onPressed,
-                    ),
+                    Button(answer: false, onPress: _onPressed),
                   ],
                 ),
               ),
               Expanded(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: _answers,
                 ),
               )

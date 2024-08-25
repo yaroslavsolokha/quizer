@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  const Button(
-      {super.key,
-      required this.answer,
-      required this.color,
-      required this.onPress});
+  const Button({super.key, required this.answer, required this.onPress});
 
   final bool answer;
-  final Color color;
   final void Function(bool answer) onPress;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {
-          onPress(answer);
-        },
+        onPressed: () => onPress(answer),
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
+          backgroundColor: answer ? Colors.green : Colors.red,
         ),
         child: Text(
           answer ? 'True' : 'False',
