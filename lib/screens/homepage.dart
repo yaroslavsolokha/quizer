@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Restart'),
-        content: const Text('You have successfully finished the quiz.'),
+        content: const Text('Your successfuly have finished quiz.'),
         actions: [
           TextButton(
             onPressed: () => {Navigator.pop(context)},
